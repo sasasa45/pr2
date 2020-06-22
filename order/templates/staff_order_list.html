@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load order_tags %}
+{% load bootstrap4 %}
+{% block body %}
+
+<div class="row">
+
+        <div class="col-md-12">
+        <h4>Order list</h4>
+        <div class="table-responsive">
+          
+              <table id="mytable" class="table table-bordred table-striped">
+
+               <thead>
+                    <th>Order #</th>
+                    <th>Total</th>
+                    <th>Manager</th>
+                    <th>Status</th>
+                    <th>Creation date</th>
+                    <th>Payment date</th>
+
+                   </thead>
+                <tbody>
+                {% for order in orders %}
+
+                <tr>
+
+                <td><a href="{% url 'staff_order_update' pk=order.pk %}">{{order.pk}}</a></td>
+                <td>{{order.suma}}</td>
+                <td>{{order.manager}}</td>
+                <td>{{order.status}}</td>
+                <td>{{order.creation_data}}</td>
+                <td>{{order.payment_data}}</td>
+
+                </tr>
+
+                {% empty %}
+                <h3>You have no orders!</h3>
+                {% endfor %}
+                </tbody>
+
+              </table>
+            </div>
+        </div>
+	</div>
+
+{% endblock %}

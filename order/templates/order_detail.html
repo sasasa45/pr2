@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load order_tags %}
+{% load bootstrap4 %}
+{% block body %}
+
+<div class="text-center">
+  <h2>Order #{{order.pk}}</h2>
+</div>
+<div class="row">
+  <div class="col-lg-5 col-md-5 ">
+      <h5>Total: {{order.suma}}</h5>
+      <h5>Status: {{order.status}}</h5>
+      <h5>Create date: {{order.creation_data}}</h5>
+      <h5>Payment date: {{order.payment_data}}</h5>
+  </div>
+  <div class="col-lg-5 col-md-5 ">
+      <h5>Manager: {{order.manager}}</h5>
+      <h5>Type of delivery: {{order.delivery}}</h5>
+      <h5>dep. #: {{order.filial_number}}</h5>
+      <h5>City: {{order.city}}</h5>
+      <h5>Person: {{order.first_name}} {{order.last_name}}</h5>
+      <h5>Phone number: {{order.phone}}</h5>
+       </div>
+  <div class="col-lg-2 col-md-2 ">
+    <a href="{% url 'order' %}"> <button  class="btn btn-outline-success">back to orders</button></a>
+
+  </div>
+
+</div>
+
+<!-- ---------------Items------------------ -->
+      <table id="cart" class="table table-hover table-condensed">
+          <thead>
+          <tr>
+            <th style="width:50%">Product</th>
+            <th style="width:10%">Price</th>
+            <th style="width:8%">Quantity</th>
+            <th style="width:22%" class="text-center">Subtotal</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for part in order.particle_set.all %}
+          <tr>
+            <td data-th="Product">
+              <div class="row">
+                <a href="{% url 'itemdetail' pk=part.item.pk  %}">
+                <div class="col-sm-3 hidden-xs"><img height="50px" width="50px" src="{{ part.item.picture_changed.url }}" alt="..." class="img-responsive"/></div>
+                </a>
+                <div class="col-sm-9">
+                  <h5 class="nomargin">{{part.item.name}}</h5>
+                </div>
+
+              </div>
+            </td>
+            <td data-th="Price">₴{{part.item.price}}</td>
+            <td data-th="Quantity">
+              {{part.amount}}
+            </td>
+            <td data-th="Subtotal" class="text-center">{% widthratio part.amount 1 part.item.price %}</td>
+
+          </tr>
+          {% empty %}
+          <h2> Cart is empty! </h2>
+          {% endfor %}
+
+        </tbody>
+        <tfoot>
+
+          <tr>
+            <td colspan="3" class="hidden-xs"></td>
+            <td class="hidden-xs text-center"><strong>Total ₴{{order.suma}}</strong></td>
+
+          </tr>
+        </tfoot>
+      </table>
+<!-- ---------------Items------------------ -->
+<!-- comment -->
+<div class="card card-outline-secondary my-4">
+  <div class="card-header">
+    Order comments
+  </div>
+  <div class="card-body">
+  {% for comment in order.ordercomment_set.all%}
+    <p>{{comment.text}}</p>
+    <small class="text-muted">Posted by <b> {{comment.order.user.username}}</b> on {{comment.creat_date}}</small>
+    <hr>
+  {% empty %}
+  <h3>No comments!</h3>
+  {% endfor %}
+  <hr>
+  <form action="{% url 'ordercomment' pk=order.pk%}" method="post" id="usrform">
+    {% csrf_token %}
+
+      <textarea class="form-group" placeholder="Enter your comment..." rows="4" cols="50" name="text" form="usrform"></textarea>
+      <br>
+      <button type="submit" class="btn btn-outline-success">Submit</button>
+  </form>
+  </div>
+</div>
+
+<!-- comment -->
+
+{% endblock %}

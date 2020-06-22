@@ -1,0 +1,34 @@
+{% load my_feat %}
+          <div class="card h-100">
+            <a href="{% url 'itemdetail' pk=item.pk %}"><img class="card-img-top" src="{{item.picture_changed.url}}" alt=""></a>
+            <div class="card-body">
+              <h6 class="card-title">
+                {{item.name}}
+              </h6>
+              <h5>₴ {{item.price}}</h5>
+            </div>
+            <div class="card-footer">
+<!-- stars----------------- -->
+                {% if item.rate_set.count != 0 %}
+                  {% for hal in item|stars %}
+                    {% if hal|length == 5 %}
+                  <span class="text-warning">
+
+                      {% for i in hal %}
+                        &#{{i}};
+                      {% endfor %}
+                  </span>
+                  {% else %}
+                    {{hal}} votes
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+              <span class="text-warning">
+                    &#9734;&#9734;&#9734;&#9734;&#9734;
+              </span>
+              {% endif %}
+<!-- stars-------------- -->
+
+
+          </div>
+        </div>

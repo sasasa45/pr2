@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="row">
+
+      <div class="col-lg-3">
+
+               <!-- Categories Widget -->
+               <div class="card my-4">
+                 <h5 class="card-header">Filter</h5>
+                 <div class="card-body">
+                   <div class="row">
+                     <div class="col-lg-12">
+                       <form class=""  method="get">
+                         <div class="form-group">
+                           <label for="exampleFormControlInput1">Search:</label>
+                           {% if filter_form.form.search.value == None %}
+                           <input type="search"  name="search" class="form-control" id="exampleFormControlInput1" >
+                           {% else %}
+                           <input type="search" value="{{filter_form.form.search.value}}" name="search" class="form-control" id="exampleFormControlInput1" >
+                            {% endif %}
+                         </div>
+                         <hr>
+                        <label  for="id_available">Available:</label>
+                        {{filter_form.form.available}}
+                        <hr>
+
+                        <label for="customRange11">Min price:</label>
+                         <div class="d-flex justify-content-center my-4">
+                           <div class="w-75">
+                             <input type="range" class="custom-range"
+                             {% if filter_form.form.price.value.0 == None %}
+                             value="0"
+                             {% else %}
+                             value={{filter_form.form.price.value.0}}
+                             {% endif %}
+                             name="price_min" id="customRange11" min="0" max="50000">
+                           </div>
+                           <span class="font-weight-bold text-primary ml-2 valueSpan2"></span>
+                         </div>
+
+                         <label for="customRange12">Max price:</label>
+                          <div class="d-flex justify-content-center my-4">
+                            <div class="w-75">
+                              <input type="range" class="custom-range"
+                              {% if filter_form.form.price.value.1 == None %}
+                              value="50000"
+                              {% else %}
+                              value={{filter_form.form.price.value.1}}
+                              {% endif %}
+                              name="price_max" id="customRange12" min="0" max="50000">
+                            </div>
+                            <span  class="font-weight-bold text-primary ml-2 valueSpan3"></span>
+                          </div>
+
+
+                         <button type="submit" class="btn btn-outline-success">Go!</button>
+                       </form>
+                     </div>
+
+                   </div>
+                 </div>
+               </div>
+
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid" src="{{ category.pic1.url}}" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{{ category.pic2.url}}" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{{ category.pic3.url}}" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+        <div class="row">
+          {% for item in items %}
+          <div class="col-lg-4 col-md-6 mb-4">
+            {% include 'item.html' %}
+          </div>
+          {% endfor %}
+        </div>
+        <!-- /.row -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+
+
+{% endblock %}

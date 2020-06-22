@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% block body %}
+
+<div class="container bootstrap snippet">
+    <div class="row">
+  		<div class="mx-auto"><h1>Username: {{request.user.username}}</h1></div>
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+
+
+      <div class="text-center">
+        <img src="{{ pic.url }}" class="avatar img-circle img-thumbnail" alt="avatar">
+
+      </div></hr><br>
+      <a href="{% url 'order' %}"> <button  class="btn btn-outline-success">Orders history</button></a>
+        </div><!--/col-3-->
+    	<div class="col-sm-9">
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+                  <form class="form"  method="post" id="registrationForm" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      {% bootstrap_form user bound_css_class='' %}
+                      <hr>
+                      {% bootstrap_form customer  bound_css_class=''%}
+                      <button type="submit" name="button" class="btn btn-outline-success mx-auto " >Accept</button>
+              	</form>
+                <hr>
+                <a href="{% url 'password_change'%}"> <button type="button" class="btn btn-outline-warning"name="button">Change password!</button></a>
+              <hr>
+
+             </div><!--/tab-pane-->
+
+
+
+              </div><!--/tab-pane-->
+          </div><!--/tab-content-->
+
+        </div><!--/col-9-->
+    </div>
+{% endblock %}
