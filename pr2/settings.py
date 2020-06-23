@@ -23,9 +23,9 @@ TEMPLATE_DIR=os.path.join(BASE_DIR,'templates')
 SECRET_KEY = 'm(&p54r=a5-@iwzawi-s9x$)x)sr86z!*yqs$y^0+zsk79u*@0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['zatush-pr2.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'bootstrap_datepicker_plus',
     'rest_framework',
-    'storages',
+    # 'storages',
     # '',
 ]
 
@@ -102,9 +102,9 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-import dj_database_url
-db_from_env=dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# import dj_database_url
+# db_from_env=dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -145,7 +145,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL='/pic/'
 STATIC_DIR=os.path.join(BASE_DIR,'static')
-STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+# STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/pic')
 STATICFILES_DIRS=[
         STATIC_DIR,
@@ -165,15 +165,15 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'Sashella92@gmail.com'
 EMAIL_HOST_PASSWORD = '357951123Qwe'
 
-AWS_ACCESS_KEY_ID = 'AKIASIRM3ZKB5SY32XWW'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'zatush-123bucket'
-
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_QUERYSTRING_AUTH=False
+# AWS_ACCESS_KEY_ID = 'AKIASIRM3ZKB5SY32XWW'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'zatush-123bucket'
+#
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_QUERYSTRING_AUTH=False
 
 
 BOOTSTRAP4 = {
